@@ -17,18 +17,9 @@ namespace ConsoleCrawler
         private static IMongoCollection<Commic> _commic;
         static async Task Main(string[] args)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                   .AddJsonFile($"appsettings.json", optional: false);
-
-            var config = builder.Build();
-            var connectionString = config["StoreDatabaseSettings:ConnectionString"];
-            var databaseName = config["StoreDatabaseSettings:DatabaseName"];
-            var commicCollectionName = config["StoreDatabaseSettings:CommicCollectionName"];
-
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(databaseName);
-            _commic = database.GetCollection<Commic>(commicCollectionName);
+            var client = new MongoClient("mongodb+srv://enter0208:8NzaSkZdvPE6MU9@cluster0.cixty.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+            var database = client.GetDatabase("CrawlerDB");
+            _commic = database.GetCollection<Commic>("Commics");
 
             Console.WriteLine("Choose Crawler : ");
             Console.WriteLine("1. Commic");
