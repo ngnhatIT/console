@@ -43,6 +43,7 @@ namespace ConsoleCrawler
                 var threads = Int16.Parse(Console.ReadLine());
                 Console.WriteLine("Start index ?");
                 var index = Int16.Parse(Console.ReadLine());
+                Console.WriteLine("Crawling data commic ...., please wait for it!");
                 await Init(threads, index);
             }
             else
