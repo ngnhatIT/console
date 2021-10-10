@@ -59,7 +59,7 @@ namespace ConsoleCrawler
             string html = await loadPage(url + "/truyen");
             var pagesSite = Int16.Parse(await getLengthPages(html));
             var loop = (pagesSite - (indexEnd * thread) + 1) / thread;
-            for (int i = index; i < loop; i++)
+            for (int i = indexStart; i < loop; i++)
             {
                 var series = Enumerable.Range((i * thread) + 1, thread).ToList();
                 await Task.WhenAll(series.Select(s => DoWorkAsync(s)));
