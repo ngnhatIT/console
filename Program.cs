@@ -123,7 +123,7 @@ namespace ConsoleCrawler
             {
                 Headless = true,
                 Args = new string[] { "--no-sandbox", "--disable-setuid-sandbox" },
-                IgnoredDefaultArgs = new string[] { "--disable-extensions" }
+                IgnoredDefaultArgs = new string[] { "--no-sandbox", "--disable-extensions" }
             });
             await using var page = await browser.NewPageAsync();
 
