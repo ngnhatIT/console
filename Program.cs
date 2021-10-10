@@ -42,9 +42,11 @@ namespace ConsoleCrawler
                 Console.WriteLine("Many thread ?");
                 var threads = Int16.Parse(Console.ReadLine());
                 Console.WriteLine("Start index ?");
-                var index = Int16.Parse(Console.ReadLine());
+                var indexStart = Int16.Parse(Console.ReadLine());
+                Console.WriteLine("End index ?");
+                var indexEnd = Int16.Parse(Console.ReadLine());
                 Console.WriteLine("Crawling data commic ...., please wait for it!");
-                await Init(threads, index);
+                await Init(threads, indexStart, indexEnd);
             }
             else
             {
@@ -52,11 +54,11 @@ namespace ConsoleCrawler
             }
         }
 
-        private static async Task Init(int thread, int index)
+        private static async Task Init(int thread, int indexStart, int indexEnd)
         {
             string html = await loadPage(url + "/truyen");
             var pagesSite = Int16.Parse(await getLengthPages(html));
-            var loop = pagesSite / thread;
+            var loop = (pagesSite - (indexEnd * thread) + 1) / thread;
             for (int i = index; i < loop; i++)
             {
                 var series = Enumerable.Range((i * thread) + 1, thread).ToList();
