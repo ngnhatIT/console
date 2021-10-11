@@ -39,15 +39,26 @@ namespace ConsoleCrawler
                 Console.WriteLine("Many thread ?");
                 var threads = Int16.Parse(Console.ReadLine());
                 Console.WriteLine("Crawling data commic ...., please wait for it!");
-                await Init(threads);
+                await CrawlerCommics(threads);
             }
             else
             {
-                Console.WriteLine("Loading chronium 2 .........");
+                Console.WriteLine("you choose crawler commics");
+                var browserFetcher = new BrowserFetcher();
+                var process = await browserFetcher.DownloadAsync();
+                if (process.Downloaded)
+                {
+                    Console.WriteLine("Install chronium success");
+                }
+                else
+                {
+                    Console.WriteLine("Install chronium fail");
+                }
+                Console.WriteLine("Crawling data chapter ...., please wait for it!");
             }
         }
 
-        private static async Task Init(int thread)
+        private static async Task CrawlerCommics(int thread)
         {
             string html = await loadPage(url + "/truyen");
             var pagesSite = Int16.Parse(await getLengthPages(html));
