@@ -18,7 +18,6 @@ namespace ConsoleCrawler
             var client = new MongoClient("mongodb+srv://enter0208:8NzaSkZdvPE6MU9@cluster0.cixty.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
             var database = client.GetDatabase("CrawlerDB");
             _commic = database.GetCollection<Commic>("Commics");
-
             Console.WriteLine("Choose Crawler : ");
             Console.WriteLine("1. Commic");
             Console.WriteLine("2. Chapter");
@@ -126,7 +125,7 @@ namespace ConsoleCrawler
 
             await page.SetUserAgentAsync("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36");
             await page.GoToAsync(urlPage, timeout: 0);
-            await Task.Delay(5000);
+            await Task.Delay(10000);
             string result = await page.GetContentAsync();
             await page.CloseAsync();
             await browser.CloseAsync();
