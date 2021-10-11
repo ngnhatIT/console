@@ -18,6 +18,14 @@ namespace ConsoleCrawler
             var client = new MongoClient("mongodb+srv://enter0208:8NzaSkZdvPE6MU9@cluster0.cixty.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
             var database = client.GetDatabase("CrawlerDB");
             _commic = database.GetCollection<Commic>("Commics");
+
+            double von = 23500;
+            for (int i = 1; i <= 75; i++)
+            {
+                von = von + (von * 0.015);
+            }
+            var a = von;
+
             Console.WriteLine("Choose Crawler : ");
             Console.WriteLine("1. Commic");
             Console.WriteLine("2. Chapter");
@@ -25,7 +33,7 @@ namespace ConsoleCrawler
 
             if (choose == 1)
             {
-                Console.WriteLine("you choose crawler commics");
+                Console.WriteLine("You choose crawler commics");
                 var browserFetcher = new BrowserFetcher();
                 var process = await browserFetcher.DownloadAsync();
                 if (process.Downloaded)
@@ -124,6 +132,29 @@ namespace ConsoleCrawler
                 Console.WriteLine($"Ending Process {i}: " + DateTime.Now.ToString("yyyy-dd-MM-HH:mm:ss") + "Total insert : " + lstCommicsPage.Count());
             }
         }
+
+        private static async Task CrawlerChapter(int thread, int chapters)
+        {
+            var lstCommics = await _commic.Find(c => true).ToListAsync();
+            var pagations = lstCommics.Count() / chapters;
+            for (int i = 0; i < pagations; i++)
+            {
+                var listPagations = lstCommics.Skip(i * chapters).Take(chapters).ToList();
+                var loop = lstCommics.Count() / thread;
+                for (int l = 0; l < loop; l++)
+                {
+                    var series = Enumerable.Range((i * thread) + 1, thread).ToList();
+                    await Task.WhenAll(series.Select(s => WorkerChapters(listPagations[s].Link, listPagations[s].LengthChapter)));
+                }
+            }
+        }
+
+        private static async Task WorkerChapters(string link, string chapters)
+        {
+
+        }
+
+
         private static async Task<string> loadPage(string urlPage)
         {
             var browser = await Puppeteer.LaunchAsync(new LaunchOptions
