@@ -6188,24 +6188,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ngnhatIT\\.nuget\\packages\\": {}
+    "C:\\Users\\nk_nhat\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\ngnhatIT\\Desktop\\projects\\ConsoleCrawler\\ConsoleCrawler.csproj",
+      "projectUniqueName": "c:\\Users\\nk_nhat\\Desktop\\console\\ConsoleCrawler.csproj",
       "projectName": "ConsoleCrawler",
-      "projectPath": "c:\\Users\\ngnhatIT\\Desktop\\projects\\ConsoleCrawler\\ConsoleCrawler.csproj",
-      "packagesPath": "C:\\Users\\ngnhatIT\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\ngnhatIT\\Desktop\\projects\\ConsoleCrawler\\obj\\",
+      "projectPath": "c:\\Users\\nk_nhat\\Desktop\\console\\ConsoleCrawler.csproj",
+      "packagesPath": "C:\\Users\\nk_nhat\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\nk_nhat\\Desktop\\console\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ngnhatIT\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\nk_nhat\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

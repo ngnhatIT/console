@@ -56,17 +56,9 @@ namespace ConsoleCrawler
 
         private static async Task Init(int thread, int indexStart, int indexEnd)
         {
-            string html = await loadPage(url + "/truyen");
-            var pagesSite = Int16.Parse(await getLengthPages(html));
-            var loop = (pagesSite - (indexEnd * thread) + 1) / thread;
-            for (int i = indexStart; i < loop; i++)
+            for (int i = indexStart; i <= indexEnd; i++)
             {
                 var series = Enumerable.Range((i * thread) + 1, thread).ToList();
-                await Task.WhenAll(series.Select(s => DoWorkAsync(s)));
-            }
-            if ((pagesSite % thread) > 0)
-            {
-                var series = Enumerable.Range((loop * thread) + 1, pagesSite % thread).ToList();
                 await Task.WhenAll(series.Select(s => DoWorkAsync(s)));
             }
         }
