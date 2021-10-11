@@ -39,12 +39,8 @@ namespace ConsoleCrawler
                 }
                 Console.WriteLine("Many thread ?");
                 var threads = Int16.Parse(Console.ReadLine());
-                Console.WriteLine("Start index ?");
-                var indexStart = Int16.Parse(Console.ReadLine());
-                Console.WriteLine("End index ?");
-                var indexEnd = Int16.Parse(Console.ReadLine());
                 Console.WriteLine("Crawling data commic ...., please wait for it!");
-                await Init(threads, indexStart, indexEnd);
+                await Init(threads);
             }
             else
             {
@@ -52,11 +48,19 @@ namespace ConsoleCrawler
             }
         }
 
-        private static async Task Init(int thread, int indexStart, int indexEnd)
+        private static async Task Init(int thread)
         {
-            for (int i = indexStart; i <= indexEnd; i++)
+            string html = await loadPage(url + "/truyen");
+            var pagesSite = Int16.Parse(await getLengthPages(html));
+            var loop = (pagesSite) / thread;
+            for (int i = 0; i < loop; i++)
             {
                 var series = Enumerable.Range((i * thread) + 1, thread).ToList();
+                await Task.WhenAll(series.Select(s => DoWorkAsync(s)));
+            }
+            if ((pagesSite % thread) > 0)
+            {
+                var series = Enumerable.Range((loop * thread) + 1, pagesSite % thread).ToList();
                 await Task.WhenAll(series.Select(s => DoWorkAsync(s)));
             }
         }
@@ -107,7 +111,7 @@ namespace ConsoleCrawler
                     lstCommicsPage.Add(commic);
                 }
                 await _commic.InsertManyAsync(lstCommicsPage);
-                Console.WriteLine($"Ending Process {i}: " + DateTime.Now.ToString("yyyy-dd-MM-HH:mm:ss"));
+                Console.WriteLine($"Ending Process {i}: " + DateTime.Now.ToString("yyyy-dd-MM-HH:mm:ss") + "Total insert : " + lstCommicsPage.Count());
             }
         }
         private static async Task<string> loadPage(string urlPage)
